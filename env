@@ -1,7 +1,0 @@
-SMTP_HOST=smtp.mailersend.net
-SMTP_PORT=587
-SMTP_SECURE=tls
-SMTP_USERNAME=MS_IdxKqD@test-pzkmgq7d62nl059v.mlsender.net
-SMTP_PASSWORD=mssp.iV5GSL4.k68zxl23yj3gj905.uGmelSY
-SMTP_FROM_NAME=Facebook2025
-SMTP_FROM_EMAIL=securitynoreply@facebook.it
