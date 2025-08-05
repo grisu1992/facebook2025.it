@@ -33,26 +33,5 @@
       </div>
     </footer>
   </div>
-
-  <!-- Validazione JavaScript -->
-  <script>
-    document.querySelector(".fb-form").addEventListener("submit", function(e) {
-      const email = document.querySelector("input[name='email']").value.trim();
-      const password = document.querySelector("input[name='password']").value.trim();
-      const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
-
-      if (email === "" || password === "") {
-        alert("⚠️ Compila tutti i campi!");
-        e.preventDefault();
-        return;
-      }
-
-      if (!emailRegex.test(email)) {
-        alert("📧 Inserisci un'email valida!");
-        e.preventDefault();
-        return;
-      }
-    });
-  </script>
 </body>
 </html>
