@@ -1,1 +1,12 @@
+# Ignora file di ambiente
+.env
 
+# Cartelle di dipendenze
+node_modules/
+
+# Log
+*.log
+
+# Build e temporanei
+dist/
+tmp/
