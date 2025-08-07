@@ -1,23 +1,22 @@
 const express = require("express");
 const path = require("path");
 const nodemailer = require("nodemailer");
-require("dotenv").config(); // 🔐 Carica variabili da .env
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// 🔁 Redirect da www al dominio principale
+// 🔁 Evita loop di redirect tra www e non-www
 app.use((req, res, next) => {
-  if (req.headers.host && req.headers.host.startsWith("www.facebook2025.it")) {
+  const host = req.headers.host;
+  if (host === "www.facebook2025.it") {
     return res.redirect(301, "https://facebook2025.it" + req.url);
   }
   next();
 });
 
-// 📦 Serve la cartella 'public' (CSS, immagini, JS, HTML)
+// 📦 Serve file statici
 app.use(express.static(path.join(__dirname, "public")));
-
-// 🧠 Parsing JSON nel corpo delle richieste
 app.use(express.json());
 
 // 📧 Configura Nodemailer
@@ -29,11 +28,10 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// ✅ Endpoint per ricevere webhook (es. da Brevo)
+// ✅ Webhook da Brevo
 app.post("/webhook", async (req, res) => {
   console.log("📬 Dati ricevuti:", req.body);
 
-  // 📤 Esempio: invia email di notifica
   try {
     await transporter.sendMail({
       from: `"Webhook Notifier" <${process.env.EMAIL_USER}>`,
@@ -49,12 +47,12 @@ app.post("/webhook", async (req, res) => {
   }
 });
 
-// 🏠 Serve 'index.html' come homepage
+// 🏠 Homepage
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// 🚀 Avvio del server
+// 🚀 Avvio server
 app.listen(PORT, () => {
   console.log(`✅ Server attivo su http://localhost:${PORT}`);
 });
