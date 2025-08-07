@@ -1,7 +1,7 @@
 {
   "name": "webhook-server",
   "version": "1.0.0",
-  "description": "Simple webhook server using Express",
+  "description": "Simple webhook server using Express, Nodemailer, and dotenv for environment configuration",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -9,7 +9,8 @@
   "dependencies": {
     "express": "^4.18.2",
     "body-parser": "^1.20.2",
-    "nodemailer": "^6.9.4"
+    "nodemailer": "^6.9.4",
+    "dotenv": "^16.4.5"
   },
   "license": "MIT"
 }
